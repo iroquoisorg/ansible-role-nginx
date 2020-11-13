@@ -44,6 +44,7 @@
   with_items: "{{ nginx_configs.keys() }}"
   notify:
     - reload nginx
+  when: nginx_configs | length > 0
   tags: [configuration, nginx]
 
 - name: Create the configurations for independent config file for streams
@@ -54,4 +55,4 @@
   notify:
     - reload nginx
   tags: [configuration, nginx]
-  when: nginx_official_repo_mainline
+  when: nginx_official_repo_mainline and nginx_stream_configs | length > 0

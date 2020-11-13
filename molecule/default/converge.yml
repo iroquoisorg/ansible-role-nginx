@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  vars:
+    nginx_http_params:
+      - "log_format main '[$time_local] $remote_addr - $http_x_forwarded_for - $remote_user $request $status $body_bytes_sent $http_referer $http_user_agent $http_x_original_host $http_x_forwarded_port $http_x_forwarded_proto'"
+      - "add_header X-Backend-Server $hostname"
+  roles:
+    - role: ansible-role-nginx
